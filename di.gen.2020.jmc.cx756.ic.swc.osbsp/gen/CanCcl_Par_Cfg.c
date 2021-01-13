@@ -100,11 +100,11 @@ CONST(Ccl_TxSigInfoType, CCL_CONST) Can_Ccl_TxSigInfo[Can_Ccl_Tx_Signal_Num_Sign
 	 { /*	  49 */		0 , 	 0x0,	  SIG_NOSENDTYPE	  },		  /* BackupCountODO		*/
 	 { /*	  50 */		0 , 	 0x0,	  SIG_NOSENDTYPE	  },		  /* IC_Rolling_counter_0x510		*/
 	 { /*	  51 */		0 , 	 0x0,	  SIG_NOSENDTYPE	  },		  /* IC_Checksum_0x510		*/
-	 { /*	  52 */		0 , 	 0x0,	  SIG_NOSENDTYPE	  },		  /* IC_TemperatureUnitsSetting		*/
-	 { /*	  53 */		0 , 	 0x0,	  SIG_NOSENDTYPE	  },		  /* IC_MileageUnitsSetting		*/
-	 { /*	  54 */		0 , 	 0x0,	  SIG_NOSENDTYPE	  },		  /* IC_LanguageSetting		*/
-	 { /*	  55 */		0 , 	 0x0,	  SIG_NOSENDTYPE	  },		  /* IC_AFCUnitsSetting		*/
-	 { /*	  56 */		0 , 	 0x0,	  SIG_NOSENDTYPE	  },		  /* IC_PressureUnitsSetting		*/
+	 { /*	  52 */		0 , 	 0x0,	  SIG_ONCHANGE	      },		  /* IC_TemperatureUnitsSetting		*/
+	 { /*	  53 */		0 , 	 0x0,	  SIG_ONCHANGE	      },		  /* IC_MileageUnitsSetting		*/
+	 { /*	  54 */		0 , 	 0x0,	  SIG_ONCHANGE	      },		  /* IC_LanguageSetting		*/
+	 { /*	  55 */		0 , 	 0x0,	  SIG_ONCHANGE	      },		  /* IC_AFCUnitsSetting		*/
+	 { /*	  56 */		0 , 	 0x0,	  SIG_ONCHANGE	      },		  /* IC_PressureUnitsSetting		*/
 	 { /*	  57 */		0 , 	 0x0,	  SIG_NOSENDTYPE	  },		  /* IC_AFC		*/
 	 { /*	  58 */		0 , 	 0x0,	  SIG_NOSENDTYPE	  },		  /* IC_DTE		*/
 	 { /*	  59 */		0 , 	 0x0,	  SIG_NOSENDTYPE	  },		  /* IC_AlarmStatus		*/
@@ -1537,7 +1537,7 @@ Date       By         Reason For Change
 
 ******************************************************************************/
 /*****************************************************************************
-Date          : 2021-01-06 14:51:25
+Date          : 2021-01-13 16:59:39
 By              : ChengJia
 Traceability    : JMC_SUV_Body_CAN_Matrix_20210104.dbc
 Change Description  : Tool Generated code

@@ -95,7 +95,7 @@ import time
 //can_python_tool路径,dbc文件路径,生成的json文件存放路径
 -------------------------------------'''
 #can_python_tool       = 'D:\\works\\projects\\JMC_7.0\\N356_7.0\\11.Software\\N356_CAN\\can_python_tool'#can_python_tool路径
-dbc_name                 = 'JMC_SUV_Body_CAN_Matrix_20201229.dbc'
+dbc_name                 = 'JMC_SUV_Body_CAN_Matrix_20210104.dbc'
 can_python_tool          = os.getcwd()#获取当前can_python_tool.py文件所在目录
 dbc_file                 = '..\..\di.gen.2020.jmc.cx756.ic.bsw.osbsp.cfg\project\Config\System' + '\\' + dbc_name #原始dbc文件路径
 #dbc_file                 = can_python_tool + '\\' + dbc_name #原始dbc文件路径
@@ -129,6 +129,8 @@ PhysicalAddress = '1840'#0x730
 FunctionAddress = '2015'#0x7DF
 PhysicalReq     = 'Tester_DiagReqToIC'
 FunctionReq     = 'Tester_DiagFuncReq'
+
+EVENT_0X511     = '1297'#0x511
 
 current_status = 'idle'#当前处理状态
 
@@ -1472,7 +1474,10 @@ def CanCcl_Par_Cfg_c():
 	index = 0
 	for i in dbc_tx_il_msgs:
 		for s in i['msg_signals']:
-			f_CanCcl_Par_Cfg_c.write('	 { /*	  %d */		0 , 	 0x0,	  SIG_NOSENDTYPE	  },		  /* %s		*/\n'%(index, s['sig_name']))
+			if (i['msg_id'] == EVENT_0X511):#0x511
+				f_CanCcl_Par_Cfg_c.write('	 { /*	  %d */		0 , 	 0x0,	  SIG_ONCHANGE	      },		  /* %s		*/\n'%(index, s['sig_name']))
+			else:
+				f_CanCcl_Par_Cfg_c.write('	 { /*	  %d */		0 , 	 0x0,	  SIG_NOSENDTYPE	  },		  /* %s		*/\n'%(index, s['sig_name']))
 			index += 1
 	
 	f_CanCcl_Par_Cfg_c.write('};\n')
