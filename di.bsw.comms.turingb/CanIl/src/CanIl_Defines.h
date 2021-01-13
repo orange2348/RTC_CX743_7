@@ -146,6 +146,15 @@ typedef struct sCAN_IL_TX_BURST_PERIODIC
 } CAN_IL_TX_BURST_PERIODIC;
 
 
+typedef struct sCAN_IL_TX_EVENT
+{
+    CAN_UINT8  const nRepetiton;            /* Msg number of Repetiton             */
+
+    CAN_UINT16 * const pTxRepetitonCount;   /* Pointer to the Transmit Status           */	
+
+} CAN_IL_TX_EVENT; 
+
+
 typedef struct sCAN_IL_TX_PERIODIC
 {
     CAN_UINT16  const period;               /* Primary Period (in Task Tics)            */
@@ -155,6 +164,7 @@ typedef struct sCAN_IL_TX_PERIODIC
     CAN_UINT16 * const pTxPeriodicCount;    /* Pointer to the Transmit Status           */
 
 } CAN_IL_TX_PERIODIC;
+
 
 
 typedef struct sCAN_IL_TX_FRAME

@@ -1494,14 +1494,12 @@ CanIl_RxIndication(CAN_HWINST /*const*/ hwInst, CAN_UINT16 const canFrameHandle,
 	}
 	else
 	{
-		#if 1
-		if ( 0x384 == pRmd->Identifier.I32 ) 
+		if ( 0x382 == pRmd->Identifier.I32 ) 
 		{
 			hwInst = 0;
 		}
 		else
 		{}
-		#endif
 	}
 
 
@@ -3163,8 +3161,8 @@ extern uint8	Rte_ClockMdl_ppSR_CANMSG_IC_time_0x581_ComOut_IC_Date;
 extern uint8	Rte_ClockMdl_ppSR_CANMSG_IC_time_0x581_ComOut_IC_Hour;
 extern uint8	Rte_ClockMdl_ppSR_CANMSG_IC_time_0x581_ComOut_IC_Minute;
 extern uint8	Rte_ClockMdl_ppSR_CANMSG_IC_time_0x581_ComOut_IC_Second;
-extern uint8    Rte_ComVnimMdl_rpSR_CANMSG_IC_0x392_ComOut_IC_AverageSpeed;
-extern uint16   Rte_ComVnimMdl_rpSR_CANMSG_IC_0x392_ComOut_IC_ChangOilDistance;
+extern uint8    Rte_ComVnimMdl_rpSR_CANMSG_IC_0x387_ComOut_IC_AverageSpeed;
+extern uint16   Rte_ComVnimMdl_rpSR_CANMSG_IC_0x387_ComOut_IC_ChangOilDistance;
 
 
 //---------------------------------------------------------------------------------------------------------------------
@@ -3188,8 +3186,8 @@ void Rte_Init_Output_Signals( void )
 	Rte_ClockMdl_ppSR_CANMSG_IC_time_0x581_ComOut_IC_Hour          = 0xFFU;
 	Rte_ClockMdl_ppSR_CANMSG_IC_time_0x581_ComOut_IC_Minute        = 0xFFU;
 	Rte_ClockMdl_ppSR_CANMSG_IC_time_0x581_ComOut_IC_Second        = 0xFFU;
-	Rte_ComVnimMdl_rpSR_CANMSG_IC_0x392_ComOut_IC_AverageSpeed     = 0xFF;
-	Rte_ComVnimMdl_rpSR_CANMSG_IC_0x392_ComOut_IC_ChangOilDistance = 0x7FFF;
+	Rte_ComVnimMdl_rpSR_CANMSG_IC_0x387_ComOut_IC_AverageSpeed     = 0xFF;
+	Rte_ComVnimMdl_rpSR_CANMSG_IC_0x387_ComOut_IC_ChangOilDistance = 0x7FFF;
 
 //	Rte_CruiseMdl_ppSR_CANMSG_IC_ComOut_IC_CheckSum_IC = 0U;
 //	Rte_CruiseMdl_ppSR_CANMSG_IC_ComOut_IC_CruiseSwitch = 0U;
@@ -3218,8 +3216,8 @@ void Rte_Init_Output_Signals( void )
 	(void)Com_SendSignal( ComConf_ComSignal_IC_Hour_afccb5cc, (void*)(&Rte_ClockMdl_ppSR_CANMSG_IC_time_0x581_ComOut_IC_Hour));
 	(void)Com_SendSignal( ComConf_ComSignal_IC_Minute_afccb5cc, (void*)(&Rte_ClockMdl_ppSR_CANMSG_IC_time_0x581_ComOut_IC_Minute));
 	(void)Com_SendSignal( ComConf_ComSignal_IC_Second_afccb5cc, (void*)(&Rte_ClockMdl_ppSR_CANMSG_IC_time_0x581_ComOut_IC_Second)); 
-	(void)Com_SendSignal( ComConf_ComSignal_IC_AverageSpeed_0b379a58, (void*)(&Rte_ComVnimMdl_rpSR_CANMSG_IC_0x392_ComOut_IC_AverageSpeed));
-	(void)Com_SendSignal( ComConf_ComSignal_IC_ChangOilDistance_0b379a58, (void*)(&Rte_ComVnimMdl_rpSR_CANMSG_IC_0x392_ComOut_IC_ChangOilDistance));
+	(void)Com_SendSignal( ComConf_ComSignal_IC_AverageSpeed_54ac807f, (void*)(&Rte_ComVnimMdl_rpSR_CANMSG_IC_0x387_ComOut_IC_AverageSpeed));
+	(void)Com_SendSignal( ComConf_ComSignal_IC_ChangOilDistance_54ac807f, (void*)(&Rte_ComVnimMdl_rpSR_CANMSG_IC_0x387_ComOut_IC_ChangOilDistance));
     
 
 }
