@@ -44,6 +44,11 @@
 extern CAN_IL_TX_FRAME const* pCan_Il_Tx_Frame[CAN_IL_NUM_OF_CHANNELS];
 extern CAN_IL_TX_MESSAGE const* pCan_Il_Tx_Message[CAN_IL_NUM_OF_CHANNELS];
 
+/*IL event tx msg repetition : 3*/
+#define REPETITION_OF_TX_EVENT  (2u)
+
+#define EVENT_TX_MSG_HANDLE     (4u)
+
 
 #ifdef CANIL_CCLSUPPORT
 

@@ -426,11 +426,11 @@ CAN_IL_TX_FRAME const Can_Ch0_Il_Tx_Frame_Table[ Can_Ch0_Il_Tx_Num_Messages ] =
  },
  {
  /* IC_0x511 Message (CAN periodic, data change or a request ) */
-     (IL_TX_ATTR_PERIODIC | IL_TX_ATTR_TXC_NOTIFY),   /* Frame Transmission Attributes                */
+     (IL_TX_ATTR_EVENT | IL_TX_ATTR_TXC_NOTIFY),   /* Frame Transmission Attributes                */
      &Can_Ch0_Il_Tx_Frame_Status[ 4 ],       /* Pointer to the Frame Status Variable         */
      Can_Ch0_Il_Tx_Frame_Data[ 4 ],          /* Pointer to the Transmitted Frame Data        */
      &Can_Ch0_Il_Tx_Delay_Count[ 4 ],        /* Pointer to the Transmit Delay Count          */ 
-     IL_TIME_IN_TASK_TICS( 0 ),                   /* Minimum Transmit Delay in Timer Tics         */
+     IL_TIME_IN_TASK_TICS( 20 ),                   /* Minimum Transmit Delay in Timer Tics         */
      &Can_Ch0_Il_Tx_Periodic[ 4 ],           /* Pointer to the Periodic Attributes (or NULL ) */ 
      NULL,                                        /* Ptr to Burst Periodic Attributes (or NULL)   */
      &Can_Ch0_Il_Tx_Message_IC_0x511_Tmd,  /* Pointer to CAN Driver TMD Data Structure     */
@@ -1397,7 +1397,7 @@ Date       By         Reason For Change
 
 ******************************************************************************/
 /*****************************************************************************
-Date          : 2021-01-06 14:51:25
+Date          : 2021-01-14 17:49:28
 By              : ChengJia
 Traceability    : JMC_SUV_Body_CAN_Matrix_20210104.dbc
 Change Description  : Tool Generated code

@@ -41,7 +41,7 @@
 #define Can_Ch0_Il_Tx_Num_Burst_Periodic   (0u) /*no use*/
 
 
-#define Can_Ch0_Il_Tx_Num_Periodic         (7u) /*no use*/
+#define Can_Ch0_Il_Tx_Num_Periodic         (7u)
 
 
 /* ===========================================================================
@@ -716,7 +716,7 @@ Date       By         Reason For Change
 
 ******************************************************************************/
 /*****************************************************************************
-Date          : 2021-01-06 14:51:25
+Date          : 2021-01-14 17:49:28
 By              : ChengJia
 Traceability    : JMC_SUV_Body_CAN_Matrix_20210104.dbc
 Change Description  : Tool Generated code

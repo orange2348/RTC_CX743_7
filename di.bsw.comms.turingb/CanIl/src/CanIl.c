@@ -102,6 +102,7 @@ extern CAN_UINT8 Can_Ch0_Il_Tx_Frame_Data[ Can_Ch0_Il_Tx_Num_Messages ][ CAN_MAX
 *
 *
 ****************************************************************************/
+CAN_UINT8 RepetitionCnt_0x511 = REPETITION_OF_TX_EVENT; /*Repetition counter of tx msg 0x511 */
 
 static CAN_UINT8 const
 CanIlBitWidthMasks[ CAN_GPNUM_9 ] =
@@ -1122,7 +1123,7 @@ CanIlTxPutSignal( CAN_UINT16 const sigHandle, CAN_UINT8 const * const pBuffer, C
 		        /* Check for Event Based Transmission Enabled */
 		        if (0 != (CanIlUtilTestBits( &pcanTxFrame->txAttributes, IL_TX_ATTR_EVENT)) )
 		        {
-
+		            RepetitionCnt_0x511 = REPETITION_OF_TX_EVENT;/*Signal changed, reset the repetition counter*/
 		#ifdef CAN_IL_TX_BURST_MODE
 
 		            if ( (0 == CanIlUtilTestBits(&(pcanTxFrame->txAttributes), IL_TX_ATTR_BURST)) ||
@@ -1135,6 +1136,7 @@ CanIlTxPutSignal( CAN_UINT16 const sigHandle, CAN_UINT8 const * const pBuffer, C
 		#else
 
 		            /* Set the Event Transmission Request Status Bit */
+
 		            CanIlUtilSetClearBits( pcanTxFrame->pTxStatus, IL_TX_STATUS_EVENT_TX_PENDING, TRUE );
 
 		#endif
@@ -2850,9 +2852,26 @@ CanIlTxTaskService( CAN_HWINST const hwInst )
                     /* Reset the Periodic Counter */
                     *(pcanTxPeriodic->pTxPeriodicCount) = pcanTxPeriodic->period;
                 }
+
+                /*Special handle for msg 0x511 Reptition*/
+                if ((EVENT_TX_MSG_HANDLE == pTxTmd->MsgHandle) && (FALSE == isPeriodic))
+                {
+                    if (RepetitionCnt_0x511 > 0)
+                    {
+                        RepetitionCnt_0x511--; /*Count down when tx succeed*/
+                    }
+                    else
+                    {
+                        /* Clear Event Pending Delayed Transmit Requests */
+                        CanIlUtilSetClearBits( pcanTxFrame->pTxStatus, IL_TX_STATUS_EVENT_TX_PENDING, FALSE);
+                    }
+                }
+                else
+                {
+                }
                 
-                /* Clear Any Pending Delayed Transmit Requests */
-                CanIlUtilSetClearBits( pcanTxFrame->pTxStatus, ( IL_TX_STATUS_PERIODIC_TX_PENDING | IL_TX_STATUS_EVENT_TX_PENDING), FALSE);
+                /* Clear Period Pending Delayed Transmit Requests */
+                CanIlUtilSetClearBits( pcanTxFrame->pTxStatus, IL_TX_STATUS_PERIODIC_TX_PENDING, FALSE);
 
                 /* Reset the Delay Counter to the Minimum Transmit Delay */
                 *(pcanTxFrame->pTxDelayCount) = pcanTxFrame->minDelay;
@@ -4440,11 +4459,13 @@ CanIlSetTxStatus ( CAN_HWINST const hwInst, CAN_UINT16 iHandle, CAN_BOOLEAN txSt
 
                 }
 
-                /* Check for Periodic Frame Transmission... */
+                /* Check for Event Frame Transmission... */
                 if (0 != CanIlUtilTestBits(&pcanTxFrame->txAttributes, IL_TX_ATTR_EVENT))
                 {
                        /* Initialize the Delay Counter to Zero */
                     *(pcanTxFrame->pTxDelayCount) = pcanTxFrame->minDelay;
+
+                    RepetitionCnt_0x511 = REPETITION_OF_TX_EVENT;/*Initialize the Repetition Counter to REPETITION_OF_TX_EVENT*/
 
                     CanIlUtilSetClearBits(&Can_Il_Tx_Status[hwInst][canFrameHndl], IL_TX_STATUS_EVENT, txState);
                 }

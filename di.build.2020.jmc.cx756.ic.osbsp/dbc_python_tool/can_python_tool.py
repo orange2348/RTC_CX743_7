@@ -1112,7 +1112,7 @@ def CanCcl_Par_Cfg_h():
 
 
 	for i in dbc_tx_il_msgs:
-		if i['msg_send_type'] == '0' or i['msg_send_type'] == '3':#0:cycle 1:event 3:cycleAdnevent
+		if i['msg_send_type'] == '0' or i['msg_send_type'] == '1' or i['msg_send_type'] == '3':#0:cycle 1:event 3:cycleAdnevent
 			Can_Ccl_Tx_Num_Periodic += 1
 		#print(i)
 		Can_Ccl_Tx_Signal_Num_Signals += i['msg_signals_counts']
@@ -1854,7 +1854,7 @@ def CanIl_Par_Cfg_h():
 #define Can_Ch0_Il_Tx_Num_Burst_Periodic   (0u) /*no use*/
 
 
-#define Can_Ch0_Il_Tx_Num_Periodic         (%du) /*no use*/
+#define Can_Ch0_Il_Tx_Num_Periodic         (%du)
 
 
 /* ===========================================================================
@@ -2394,6 +2394,7 @@ Can_Ch0_Il_Tx_Periodic[ Can_Ch0_Il_Tx_Num_Periodic ] =
 			FrameTransAttr = r'(IL_TX_ATTR_PERIODIC | IL_TX_ATTR_TXC_NOTIFY)'
 		elif i['msg_send_type'] == '1':#Event
 			FrameTransAttr = r'(IL_TX_ATTR_EVENT | IL_TX_ATTR_TXC_NOTIFY)'
+			ticks = 20#CE类型的msg发送间隔20ms
 		elif i['msg_send_type'] == '3':#CE
 			FrameTransAttr = r'(IL_TX_ATTR_EVENT | IL_TX_ATTR_PERIODIC | IL_TX_ATTR_TXC_NOTIFY)'
 			ticks = 20#CE类型的msg发送间隔20ms
