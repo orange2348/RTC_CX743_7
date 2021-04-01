@@ -3325,11 +3325,19 @@ static Std_ReturnType CmpDeActivation( void )
 ///
 /// @return The return value is disregarded. Say E_OK
 //---------------------------------------------------------------------------------------------------------------------
+
+//! #define CAN_TX_EVENT_TEST
+#ifdef CAN_TX_EVENT_TEST
+extern uint8 Com_SendSignal(uint16 SignalId, const void *SignalDataPtr);
+#endif
 static Std_ReturnType CmpActive( void )
 {
 	eIgnState fl_IGN_state = eIGN_OFF;
 	EBatteryState fl_Battery_state = eBatteryState_Normal;
-		
+#ifdef CAN_TX_EVENT_TEST
+	static eIgnState prefl_IGN_state = eIGN_OFF;
+	static uint8 data = 1;
+#endif
 	Rte_Read_rpBattState_BatteryState(&fl_Battery_state);
 	Rte_Read_rpIgnState_IGNState(&fl_IGN_state);
 
@@ -3356,12 +3364,22 @@ static Std_ReturnType CmpActive( void )
 				break;
 
 			case eIGN_OFF:
+#ifdef CAN_TX_EVENT_TEST
+				if (eIGN_RUN == prefl_IGN_state)
+				{
+					Com_SendSignal(54, (void *)(&data)); //CanCclTxHndlCh0_IC_LanguageSetting_1297
+					data++;
+				}
+				break;
+#endif
 			default:
 				LAP_AVCV_init();
 				break;
 		}
 	}
-
+#ifdef CAN_TX_EVENT_TEST
+	prefl_IGN_state = fl_IGN_state;
+#endif
 	return E_OK;
 }
 
